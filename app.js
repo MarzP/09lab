@@ -8,8 +8,10 @@ app.use(express.static("public")); //folder for images, css, js
 app.get("/", async function(req, res){
 
   let categories = await getCategories();
+  //let authors = await getAuthors();
   //console.log(categories);
   res.render("index", {"categories":categories});
+  //res.render("index", {"authors":authors});
 
 });//root
 
@@ -77,6 +79,31 @@ function getCategories(){
     
 }//getQuotes
 
+///test get author
+// function getAuthors(){
+    
+//     let conn = dbConnection();
+    
+//     return new Promise(function(resolve, reject){
+//         conn.connect(function(err) {
+//           if (err) throw err;
+//           console.log("Connected!");
+        
+//           let sql = `SELECT DISTINCT category 
+//                       FROM q_author
+//                       ORDER BY firstName`;
+        
+//           conn.query(sql, function (err, rows, fields) {
+//               if (err) throw err;
+//               //res.send(rows);
+//               resolve(rows);
+//           });
+        
+//         });//connect
+//     });//promise
+    
+// }//getQuotes
+
 app.get("/dbTest", function(req, res){
 
     let conn = dbConnection();
@@ -100,10 +127,12 @@ app.get("/dbTest", function(req, res){
 function dbConnection(){
 
    let conn = mysql.createConnection({
-                 host: "cst336db.space",
+                  host: "cst336db.space",
                  user: "cst336_dbUser",
              password: "secret19",
              database: "cst336_db"
+                  
+            
        }); //createConnection
 
 return conn;
